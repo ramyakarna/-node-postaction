@@ -9,7 +9,7 @@
 			background-image: url(https://assets-global.website-files.com/614716f50b4f49202fdd0087/616949393cf90643c1403605_6423.png);
 			background-repeat: no-repeat;
 			background-size: 100%;
-			margin: 20% 45%;
+			margin:20% 45%  ;
 		}
 		#username{
 			padding: 5%;
@@ -19,24 +19,46 @@
 			padding: 5%;
 			border-radius: 20px;
 		}
+		#number{
+			padding: 5%;
+			border-radius: 20px;
+		}
 		.sub{
 			background-color: blue;
 			color: white;
-			padding: 4% 8%;
+			padding: 4% 18%;
 			border-radius: 20px;
+			margin-left: 10%;
 		}
+		#course{
+			border-radius: 25px;
+			padding: 4% 20%;
+		}
+		.login{
+			text-align: center;
+		}
+
 	</style>
 	<script type="text/javascript">
 		
 	function store(){
 			const username=document.getElementById("username").value
-			const passcode=document.getElementById("password").value
+			const password=document.getElementById("password").value
+			const number=document.getElementById("number").value
+			const course=document.getElementById("course").value
+			var gmale=document.getElementById("male").checked
+			var gfemale=document.getElementById("female").checked
+			if(gmale==true)var gender="male"
+				else var gender="female"
+			if(username==""){
+				alert("Please enter your details")
+			}
 		fetch("http://localhost:4000/newData",{
 			method:"POST",
 			headers:{
 				"Content-Type":"application/json"
 			},
-			body:JSON.stringify({name:username,password:passcode})
+			body:JSON.stringify({name:username,password:password,number:number,course:course,gender:gender})
 		})
 		.then((res)=>{
 			console.log(res)
@@ -44,15 +66,30 @@
 				alert("Data Added Successfull")
 		})
 		.catch((err)=>{
-			alert("data is not entered")
+			alert(err)
 		})
 	}
 	</script>
 </head>
 <body>
-	<h1>LOGIN PAGE</h1>
-	<p><input id="username" placeholder="Enter username"/></p>
-	<p><input id="password"placeholder="Enter password"></p>
-	<p><button class="sub" onclick="store()">submit</button></p>
-</body>
+	 <div class="login">
+		<h2>LOGIN PAGE</h2>
+		<p><input id="username" placeholder="Enter username"/></p>
+		<p><input id="password"placeholder="Enter password"></p>
+		<p><input id="number"placeholder="Enter mobile number"></p>
+		<p>
+			<input type="radio" id="male" name="gender"/>male
+		    <input type="radio" id="female" name="gender"/>female
+	    </p>
+		<select id="course">
+			<option>Select course</option>
+			<option>Javascript</option>
+			<option>Bootstrap</option>
+			<option>Css</option>
+			<option>Nodejs</option>
+			<option>Html</option>
+		</select>
+		<p><button class="sub" onclick="store()">submit</button></p>
+	</div>
+ </body>
 </html>
